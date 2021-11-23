@@ -5,7 +5,13 @@ import { Spinner } from '@chakra-ui/spinner';
 import { useSearch } from '../../services/hooks/useSearch';
 
 export default function ProductsList() {
-  const { items, setItems, setSearchedText, setDisplayedtText } = useSearch();
+  const {
+    items,
+    setItems,
+    setSearchedText,
+    setDisplayedtText,
+    searchIsLoading,
+  } = useSearch();
 
   function resetSearch() {
     setSearchedText('');
@@ -93,9 +99,17 @@ export default function ProductsList() {
             </Grid>
           </>
         ) : (
+          <>
+            {searchIsLoading === true ? (
           <HStack h="20" justify="center" w="100%">
             <Spinner color="pink.500" />
           </HStack>
+            ) : (
+              <Text>
+                Ops, não encontramos nada relacionado a essa pesquisa :/
+              </Text>
+            )}
+          </>
         )}
       </Box>
     </>

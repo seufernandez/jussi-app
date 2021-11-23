@@ -30,6 +30,8 @@ interface ItemsContextData {
   setSearchedText: Dispatch<SetStateAction<string>>;
   displayedText: string;
   setDisplayedtText: Dispatch<SetStateAction<string>>;
+  searchIsLoading: boolean;
+  setSearchIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 const ItemsContext = createContext<ItemsContextData>({} as ItemsContextData);
@@ -38,6 +40,7 @@ export function ItemsProvider({ children }: ItemsProviderProps) {
   const [items, setItems] = useState([]);
   const [searchedText, setSearchedText] = useState('');
   const [displayedText, setDisplayedtText] = useState('');
+  const [searchIsLoading, setSearchIsLoading] = useState(false);
 
   return (
     <ItemsContext.Provider
@@ -48,6 +51,8 @@ export function ItemsProvider({ children }: ItemsProviderProps) {
         setSearchedText,
         displayedText,
         setDisplayedtText,
+        searchIsLoading,
+        setSearchIsLoading,
       }}
     >
       {children}
