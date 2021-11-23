@@ -9,13 +9,20 @@ import { useSearch } from '../../services/hooks/useSearch';
 import SearchInput from '../SearchInput/index';
 
 export default function Header() {
-  const { setItems, searchedText, setSearchedText } = useSearch();
+  const { setItems, searchedText, setSearchedText, setSearchIsLoading } =
+    useSearch();
+
+  async function searchIsHappening() {
+    setSearchIsLoading(true);
+    await api
+      .get(`/anime?filter[text]=${searchedText}&page[limit]=12`)
+      .then(res => setItems(res.data.data));
+    setSearchIsLoading(false);
+  }
 
   useEffect(() => {
     if (searchedText) {
-      api
-        .get(`/anime?filter[text]=${searchedText}&page[limit]=12`)
-        .then(res => setItems(res.data.data));
+      searchIsHappening();
     }
   }, [searchedText]);
 
