@@ -14,9 +14,12 @@ export default function Header() {
 
   async function searchIsHappening() {
     setSearchIsLoading(true);
-    await api
-      .get(`/anime?filter[text]=${searchedText}&page[limit]=12`)
-      .then(res => setItems(res.data.data));
+
+    const response = await api.get(
+      `/anime?filter[text]=${searchedText}&page[limit]=12`
+    );
+
+    setItems(response.data.data);
     setSearchIsLoading(false);
   }
 
